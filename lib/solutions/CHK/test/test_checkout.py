@@ -10,7 +10,7 @@
 # +------+-------+------------------------+
 
 from lib.solutions.CHK.checkout_solution import get_a_price, get_b_price, get_c_price, get_d_price, get_amounts, \
-    checkout, check_input, get_e_price
+    checkout, check_input, get_e_price, get_f_price
 
 
 def test_checkout():
@@ -75,6 +75,9 @@ def test_f_price():
     assert 10 == get_f_price(1)
     assert 20 == get_f_price(2)
     assert 20 == get_f_price(3)
+    assert 30 == get_f_price(4)
+    assert 40 == get_f_price(5)
+    assert 40 == get_f_price(6)
 
 def test_get_amounts():
     assert {'A': 1, 'B': 1} == get_amounts("AB")
@@ -85,8 +88,9 @@ def test_check_input():
     assert check_input("AA")
     assert check_input("AABCD")
     assert check_input("AABCDE")
-    assert not check_input("AABCDEF")
+    assert check_input("AABCDEF")
     assert not check_input("AABCDEFx")
+    assert not check_input("AABCDEFGx")
 
 
 def test_empty_checkout():

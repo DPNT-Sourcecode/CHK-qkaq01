@@ -3,7 +3,7 @@ import re
 
 
 def check_input(skus):
-    return re.match("^[A-E]*$", skus)
+    return re.match("^[A-F]*$", skus)
 
 
 def get_offer_price(amount, offer_amount, offer_price, regular_price):
@@ -38,6 +38,11 @@ def get_e_price(amount):
     return amount * 40
 
 
+def get_f_price(amount):
+    free = amount // 3
+    return (amount - free) * 10
+
+
 def get_amounts(skus):
     return Counter(list(skus))
 
@@ -48,10 +53,12 @@ def checkout(skus):
     if check_input(skus):
         amounts = get_amounts(skus)
         a = get_a_price(amounts['A'])
-        b = get_b_price(amounts['B'], amounts['E']) # silly mistake... makes me wonder if amount_e shouldnt be optional!
+        b = get_b_price(amounts['B'],
+                        amounts['E'])  # silly mistake... makes me wonder if amount_e shouldnt be optional!
         c = get_c_price(amounts['C'])
         d = get_d_price(amounts['D'])
         e = get_e_price(amounts['E'])
-        return a + b + c + d + e
+        f = get_e_price(amounts['F'])
+        return a + b + c + d + e + f
     else:
         return -1
