@@ -1,7 +1,10 @@
 from collections import Counter
+import re
+
 
 def check_input(skus):
-    return True
+    return re.match("^[A-D]+$", skus)
+
 
 def get_offer_price(amount, offer_amount, offer_price, regular_price):
     (offer, regular) = divmod(amount, offer_amount)
