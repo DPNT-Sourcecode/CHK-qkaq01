@@ -129,7 +129,7 @@ def test_m_price():
 def test_n_price():
     # | N    | 40    | 3N get one M free
     assert False
-    
+
 
 def test_get_amounts():
     assert {'A': 1, 'B': 1} == get_amounts("AB")
