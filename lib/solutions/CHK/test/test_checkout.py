@@ -6,6 +6,8 @@
 # | C    | 20    |                |
 # | D    | 15    |                |
 # +------+-------+----------------+
+from collections import Counter
+
 from lib.solutions.CHK.checkout_solution import get_a_price, get_b_price, get_c_price, get_d_price
 
 
@@ -32,3 +34,12 @@ def test_c_price():
 def test_d_price():
     assert 15 == get_d_price(1)
     assert 30 == get_d_price(2)
+
+
+def get_amounts(skus):
+    return Counter(skus.split())
+
+
+def test_get_amounts():
+    assert {'a': 1, 'b': 1} == get_amounts("a b")
+    assert {'a': 2, 'b': 2, 'c': 1} == get_amounts("a b b c a")
