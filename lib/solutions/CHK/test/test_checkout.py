@@ -1,11 +1,12 @@
-# +------+-------+----------------+
-# | Item | Price | Special offers |
-# +------+-------+----------------+
-# | A    | 50    | 3A for 130     |
-# | B    | 30    | 2B for 45      |
-# | C    | 20    |                |
-# | D    | 15    |                |
-# +------+-------+----------------+
+# +------+-------+------------------------+
+# | Item | Price | Special offers         |
+# +------+-------+------------------------+
+# | A    | 50    | 3A for 130, 5A for 200 |
+# | B    | 30    | 2B for 45              |
+# | C    | 20    |                        |
+# | D    | 15    |                        |
+# | E    | 40    | 2E get one B free      |
+# +------+-------+------------------------+
 
 from lib.solutions.CHK.checkout_solution import get_a_price, get_b_price, get_c_price, get_d_price, get_amounts, \
     checkout, check_input
@@ -54,8 +55,9 @@ def test_get_amounts():
 def test_check_input():
     assert check_input("AA")
     assert check_input("AABCD")
-    assert not check_input("AABCDE")
-    assert not check_input("AABCDEx")
+    assert check_input("AABCDE")
+    assert not check_input("AABCDEF")
+    assert not check_input("AABCDEFx")
 
 def test_empty_checkout():
     assert check_input("")
