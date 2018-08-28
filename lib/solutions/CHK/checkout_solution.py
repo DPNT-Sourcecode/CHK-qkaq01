@@ -58,7 +58,7 @@ def checkout(skus):
         c = get_c_price(amounts['C'])
         d = get_d_price(amounts['D'])
         e = get_e_price(amounts['E'])
-        f = get_e_price(amounts['F'])
+        f = get_f_price(amounts['F'])
         return a + b + c + d + e + f
     else:
         return -1
