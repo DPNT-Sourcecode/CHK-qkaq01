@@ -45,7 +45,7 @@ def checkout(skus):
     if check_input(skus):
         amounts = get_amounts(skus)
         a = get_a_price(amounts['A'])
-        b = get_b_price(amounts['B'], amounts['E'])
+        b = get_b_price(amounts['B'], amounts['E']) # silly mistake... makes me wonder if amount_e shouldnt be optional!
         c = get_c_price(amounts['C'])
         d = get_d_price(amounts['D'])
         e = get_e_price(amounts['E'])
