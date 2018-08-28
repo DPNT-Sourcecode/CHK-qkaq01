@@ -1,3 +1,6 @@
+from collections import Counter
+
+
 def get_offer_price(amount, offer_amount, offer_price, regular_price):
     (offer, regular) = divmod(amount, offer_amount)
     return offer * offer_price + regular * regular_price
@@ -19,7 +22,16 @@ def get_d_price(amount):
     return amount * 15
 
 
+def get_amounts(skus):
+    return Counter(skus.split())
+
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
-    raise NotImplementedError()
+    amounts = get_amounts(skus)
+    a = get_a_price(amounts['A'])
+    b = get_a_price(amounts['B'])
+    c = get_a_price(amounts['C'])
+    d = get_a_price(amounts['D'])
+    return a + b + c + d
