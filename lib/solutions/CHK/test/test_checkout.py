@@ -56,3 +56,6 @@ def test_check_input():
     assert check_input("AABCD")
     assert not check_input("AABCDE")
     assert not check_input("AABCDEx")
+
+def test_empty_checkout():
+    assert check_input("")
