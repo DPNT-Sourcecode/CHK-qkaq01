@@ -31,7 +31,7 @@ def get_amounts(skus):
 def checkout(skus):
     amounts = get_amounts(skus)
     a = get_a_price(amounts['A'])
-    b = get_a_price(amounts['B'])
-    c = get_a_price(amounts['C'])
-    d = get_a_price(amounts['D'])
+    b = get_b_price(amounts['B'])
+    c = get_c_price(amounts['C'])
+    d = get_d_price(amounts['D'])
     return a + b + c + d
