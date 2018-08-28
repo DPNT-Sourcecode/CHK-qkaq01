@@ -25,7 +25,8 @@ def test_a_price():
     assert 100 == get_a_price(2)
     assert 130 == get_a_price(3)
     assert 180 == get_a_price(4)
-    assert 310 == get_a_price(7)
+    assert 200 == get_a_price(5)
+    assert 200 + 50 * 2 == get_a_price(7)
 
 
 def test_b_price():
