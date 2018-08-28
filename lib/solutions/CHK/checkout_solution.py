@@ -12,7 +12,10 @@ def get_offer_price(amount, offer_amount, offer_price, regular_price):
 
 
 def get_a_price(amount):
-    return get_offer_price(amount, 3, 130, 50)
+    # 3A for 130, 5A for 200
+    (offer1, regular) = divmod(amount, 5)
+    (offer2, regular) = divmod(regular, 3)
+    return offer1 * 200 + offer2 * 130 + regular * 50
 
 
 def get_b_price(b_amount, e_amount=0):
