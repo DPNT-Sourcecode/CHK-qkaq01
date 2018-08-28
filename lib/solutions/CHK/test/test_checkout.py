@@ -33,6 +33,8 @@ from lib.solutions.CHK.checkout_solution import get_a_price, get_b_price, get_c_
     checkout, check_input, get_e_price, get_f_price
 
 
+# Let's test only the special cases from now on
+
 def test_checkout():
     assert 50 == checkout("A")
     assert 50 + 30 == checkout("AB")  # clearer this way
@@ -91,6 +93,7 @@ def test_e_price():
     assert 40 == get_e_price(1)
     assert 80 == get_e_price(2)
 
+
 def test_f_price():
     assert 10 == get_f_price(1)
     assert 20 == get_f_price(2)
@@ -98,6 +101,35 @@ def test_f_price():
     assert 30 == get_f_price(4)
     assert 40 == get_f_price(5)
     assert 40 == get_f_price(6)
+
+
+def test_h_price():
+    # | H    | 10    | 5H for 45, 10H for 80
+    assert 10 == get_h_price(1)
+    assert 40 == get_h_price(4)
+    assert 45 == get_h_price(5)
+    assert 45 + 40 == get_h_price(9)
+    assert 80 == get_h_price(10)
+    assert 80 + 10 == get_h_price(11)
+
+
+def test_k_price():
+    # | K    | 80    | 2K for 150             |
+    assert 80 == get_k_price(1)
+    assert 150 == get_k_price(2)
+    assert 150 + 80 == get_k_price(3)
+
+
+def test_m_price():
+    # | M    | 15    |                        |
+    # | N    | 40    | 3N get one M free
+    assert False
+
+
+def test_n_price():
+    # | N    | 40    | 3N get one M free
+    assert False
+    
 
 def test_get_amounts():
     assert {'A': 1, 'B': 1} == get_amounts("AB")
@@ -109,7 +141,7 @@ def test_check_input():
     assert check_input("AABCD")
     assert check_input("AABCDE")
     assert check_input("AABCDEF")
-    assert not check_input("AABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    assert check_input("AABCDEFGHIJKLMNOPQRSTUVWXYZ")
     assert not check_input("AABCDEFGx")
 
 
