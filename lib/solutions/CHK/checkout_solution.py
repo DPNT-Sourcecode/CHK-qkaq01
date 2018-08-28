@@ -42,4 +42,4 @@ def checkout(skus):
         d = get_d_price(amounts['D'])
         return a + b + c + d
     else:
-        return -1
+        return -1
