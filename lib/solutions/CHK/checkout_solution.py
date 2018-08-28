@@ -19,8 +19,11 @@ def get_a_price(amount):
 
 
 def get_b_price(b_amount, e_amount=0):
-    b_free = e_amount // 2
-    return get_offer_price(b_amount - b_free, 2, 45, 30)
+    if b_amount > 0:
+        b_free = e_amount // 2
+        return get_offer_price(b_amount - b_free, 2, 45, 30)
+    else:
+        return 0
 
 
 def get_c_price(amount):
