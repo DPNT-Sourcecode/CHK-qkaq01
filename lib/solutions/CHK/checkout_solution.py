@@ -1,5 +1,7 @@
 from collections import Counter
 
+def check_input(skus):
+    return True
 
 def get_offer_price(amount, offer_amount, offer_price, regular_price):
     (offer, regular) = divmod(amount, offer_amount)
@@ -37,4 +39,4 @@ def checkout(skus):
         d = get_d_price(amounts['D'])
         return a + b + c + d
     else:
-        return -1
+        return -1

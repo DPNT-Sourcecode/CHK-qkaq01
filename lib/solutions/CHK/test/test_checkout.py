@@ -8,7 +8,8 @@
 # +------+-------+----------------+
 
 from lib.solutions.CHK.checkout_solution import get_a_price, get_b_price, get_c_price, get_d_price, get_amounts, \
-    checkout
+    checkout, check_input
+
 
 # as you can see in the vid, I forgot to run "continue" on the script. I guess I should have added 10 min or whatever
 # to my total time. Sorry about it!
@@ -49,3 +50,9 @@ def test_d_price():
 def test_get_amounts():
     assert {'A': 1, 'B': 1} == get_amounts("AB")
     assert {'A': 2, 'B': 2, 'C': 1} == get_amounts("ABBCA")
+
+def test_check_input():
+    assert check_input("AA")
+    assert check_input("AABCD")
+    assert not check_input("AABCDE")
+    assert not check_input("AABCDEx")
