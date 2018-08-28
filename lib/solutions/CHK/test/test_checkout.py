@@ -10,6 +10,8 @@
 from lib.solutions.CHK.checkout_solution import get_a_price, get_b_price, get_c_price, get_d_price, get_amounts, \
     checkout
 
+# as you can see in the vid, I forgot to run "continue" on the script. I guess I should have added 10 min or whatever
+# to my total time. Sorry about it!
 
 def test_checkout():
     assert 50 == checkout("A")
