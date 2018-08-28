@@ -6,6 +6,7 @@
 # | C    | 20    |                        |
 # | D    | 15    |                        |
 # | E    | 40    | 2E get one B free      |
+# | F    | 10    | 2F get one F free      | # Just making sure nothing else has changed
 # +------+-------+------------------------+
 
 from lib.solutions.CHK.checkout_solution import get_a_price, get_b_price, get_c_price, get_d_price, get_amounts, \
@@ -21,6 +22,10 @@ def test_checkout():
 
     assert 80 == checkout("EEB")
     assert 80 == checkout("EE")
+
+    assert 10 == checkout("F")
+    assert 20 == checkout("FF")
+    assert 20 == checkout("FFF")
 
 
 def test_a_price():
@@ -66,6 +71,10 @@ def test_e_price():
     assert 40 == get_e_price(1)
     assert 80 == get_e_price(2)
 
+def test_f_price():
+    assert 10 == get_f_price(1)
+    assert 20 == get_f_price(2)
+    assert 20 == get_f_price(3)
 
 def test_get_amounts():
     assert {'A': 1, 'B': 1} == get_amounts("AB")
