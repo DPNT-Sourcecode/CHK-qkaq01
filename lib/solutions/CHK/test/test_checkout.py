@@ -19,6 +19,8 @@ def test_checkout():
     assert 130 + 45 + 20 == checkout("ABBACA")
     assert 45 + 15 == checkout("BBD")
 
+    assert 80 == checkout("EEB")
+
 
 def test_a_price():
     assert 50 == get_a_price(1)
