@@ -15,10 +15,10 @@ from lib.solutions.CHK.checkout_solution import get_a_price, get_b_price, get_c_
 
 def test_checkout():
     assert 50 == checkout("A")
-    assert 50 + 30 == checkout("A B")  # clearer this way
-    assert 50 * 2 + 30 == checkout("A B A")
-    assert 130 + 45 + 20 == checkout("A B B A C A")
-    assert 45 + 15 == checkout("B B D")
+    assert 50 + 30 == checkout("AB")  # clearer this way
+    assert 50 * 2 + 30 == checkout("ABA")
+    assert 130 + 45 + 20 == checkout("ABBACA")
+    assert 45 + 15 == checkout("BBD")
 
 
 def test_a_price():
@@ -47,5 +47,5 @@ def test_d_price():
 
 
 def test_get_amounts():
-    assert {'A': 1, 'B': 1} == get_amounts("A B")
-    assert {'A': 2, 'B': 2, 'C': 1} == get_amounts("A B B C A")
+    assert {'A': 1, 'B': 1} == get_amounts("AB")
+    assert {'A': 2, 'B': 2, 'C': 1} == get_amounts("ABBCA")
