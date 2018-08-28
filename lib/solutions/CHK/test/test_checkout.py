@@ -9,6 +9,7 @@
 
 def get_a_price(amount):
     pass
+# sorry, i dont setup this everyday... let me just set pytest and be right back
 
 
 def get_b_price(amount):
