@@ -9,11 +9,8 @@
 # +------+-------+------------------------+
 
 from lib.solutions.CHK.checkout_solution import get_a_price, get_b_price, get_c_price, get_d_price, get_amounts, \
-    checkout, check_input
+    checkout, check_input, get_e_price
 
-
-# as you can see in the vid, I forgot to run "continue" on the script. I guess I should have added 10 min or whatever
-# to my total time. Sorry about it!
 
 def test_checkout():
     assert 50 == checkout("A")
@@ -46,7 +43,7 @@ def test_b_price():
     assert 0 == get_b_price(b_amount=1, e_amount=2)
     assert 30 == get_b_price(b_amount=2, e_amount=2)
     assert 45 == get_b_price(b_amount=3, e_amount=2)
-    assert 45*2 == get_b_price(b_amount=5, e_amount=2)
+    assert 45 * 2 == get_b_price(b_amount=5, e_amount=2)
     # Multiple free Bs
     assert 0 == get_b_price(b_amount=2, e_amount=4)
 

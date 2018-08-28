@@ -3,7 +3,7 @@ import re
 
 
 def check_input(skus):
-    return re.match("^[A-D]*$", skus)
+    return re.match("^[A-E]*$", skus)
 
 
 def get_offer_price(amount, offer_amount, offer_price, regular_price):
@@ -15,8 +15,9 @@ def get_a_price(amount):
     return get_offer_price(amount, 3, 130, 50)
 
 
-def get_b_price(amount):
-    return get_offer_price(amount, 2, 45, 30)
+def get_b_price(b_amount, e_amount=0):
+    b_free = e_amount // 2
+    return get_offer_price(b_amount - b_free, 2, 45, 30)
 
 
 def get_c_price(amount):
@@ -25,6 +26,10 @@ def get_c_price(amount):
 
 def get_d_price(amount):
     return amount * 15
+
+
+def get_e_price(amount):
+    return amount * 40
 
 
 def get_amounts(skus):
@@ -40,6 +45,7 @@ def checkout(skus):
         b = get_b_price(amounts['B'])
         c = get_c_price(amounts['C'])
         d = get_d_price(amounts['D'])
-        return a + b + c + d
+        e = get_e_price(amounts['E'])
+        return a + b + c + d + e
     else:
         return -1
