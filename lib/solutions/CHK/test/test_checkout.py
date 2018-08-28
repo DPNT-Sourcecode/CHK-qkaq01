@@ -32,10 +32,23 @@ def test_a_price():
 
 
 def test_b_price():
-    assert 30 == get_b_price(1)
-    assert 45 == get_b_price(2)
-    assert 75 == get_b_price(3)
-    assert 90 + 30 == get_b_price(5)
+    # Prices without buying any e
+    assert 30 == get_b_price(b_amount=1, e_amount=0)
+    assert 45 == get_b_price(b_amount=2, e_amount=0)
+    assert 75 == get_b_price(b_amount=3, e_amount=0)
+    assert 90 + 30 == get_b_price(b_amount=5, e_amount=0)
+    # Prices buying just one e should be the same
+    assert 30 == get_b_price(b_amount=1, e_amount=1)
+    assert 45 == get_b_price(b_amount=2, e_amount=1)
+    assert 75 == get_b_price(b_amount=3, e_amount=1)
+    assert 90 + 30 == get_b_price(b_amount=5, e_amount=1)
+    # Prices buying 2 e should be discounted
+    assert 0 == get_b_price(b_amount=1, e_amount=2)
+    assert 30 == get_b_price(b_amount=2, e_amount=2)
+    assert 45 == get_b_price(b_amount=3, e_amount=2)
+    assert 45*2 == get_b_price(b_amount=5, e_amount=2)
+    # Multiple free Bs
+    assert 0 == get_b_price(b_amount=2, e_amount=4)
 
 
 def test_c_price():
@@ -48,9 +61,15 @@ def test_d_price():
     assert 30 == get_d_price(2)
 
 
+def test_e_price():
+    assert 40 == get_e_price(1)
+    assert 80 == get_e_price(2)
+
+
 def test_get_amounts():
     assert {'A': 1, 'B': 1} == get_amounts("AB")
     assert {'A': 2, 'B': 2, 'C': 1} == get_amounts("ABBCA")
+
 
 def test_check_input():
     assert check_input("AA")
@@ -58,6 +77,7 @@ def test_check_input():
     assert check_input("AABCDE")
     assert not check_input("AABCDEF")
     assert not check_input("AABCDEFx")
+
 
 def test_empty_checkout():
     assert check_input("")
