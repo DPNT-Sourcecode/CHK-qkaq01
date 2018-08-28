@@ -6,23 +6,7 @@
 # | C    | 20    |                |
 # | D    | 15    |                |
 # +------+-------+----------------+
-
-def get_a_price(amount):
-    pass
-# sorry, i dont setup this everyday... let me just set pytest and be right back
-
-
-def get_b_price(amount):
-    (offer, regular) = divmod(amount, 2)
-    return offer * 45 + regular * 30
-
-
-def get_c_price(amount):
-    return amount * 20
-
-
-def get_d_price(amount):
-    return amount * 15
+from lib.solutions.CHK.checkout_solution import get_a_price, get_b_price, get_c_price, get_d_price
 
 
 def test_a_price():
