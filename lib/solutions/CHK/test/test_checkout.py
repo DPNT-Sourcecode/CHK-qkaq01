@@ -76,6 +76,8 @@ def test_b_price():
     assert 90 + 30 == get_b_price(30, b_amount=5, e_amount=1)
     # Prices buying 2 e should be discounted
     assert 0 == get_b_price(30, b_amount=1, e_amount=2)
+    assert 0 == checkout("BEE")
+
     assert 30 == get_b_price(30, b_amount=2, e_amount=2)
     assert 45 == get_b_price(30, b_amount=3, e_amount=2)
     assert 45 * 2 == get_b_price(30, b_amount=5, e_amount=2)
