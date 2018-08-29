@@ -167,7 +167,7 @@ def get_prices_and_offers():
         "J": {"price": 60},
         "K": {"price": 70,
               "same_sku_offers": [
-                  {"amount": 2, "price": 150}
+                  {"amount": 2, "price": 120}
               ]
               },
         "L": {"price": 90},
