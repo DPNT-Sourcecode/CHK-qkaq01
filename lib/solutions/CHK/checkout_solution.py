@@ -26,10 +26,6 @@ class FreeWithOtherSkuOffer:
         self.amount = amount
 
 
-class FreeWithSameSkuOffer:
-    def __init__(self, buyed, free):
-        self.buyed = buyed
-        self.free = free
 
 
 def get_same_sku_offer_price(regular_price, offers, amount):
@@ -53,9 +49,9 @@ def get_free_with_other_offer_price(regular_price, amount, other_amount_buyed, o
         return 0
 
 
-def get_free_with_same_offer_price(amount):
-    free = amount // 3
-    return (amount - free) * 10
+def get_free_with_same_offer_price(regular_price, amount, offer_buy):
+    free = amount // offer_buy
+    return (amount - free) * regular_price
 
 
 def get_amounts(skus):
@@ -88,10 +84,8 @@ def checkout(skus):
         # f = get_f_price(amounts['F']
         f_sku = pricesjson['F']
         # offers = get_same_sku_offers(f_sku)
-        free_with_same_offer = FreeWithSameSkuOffer(f_sku['free_with_same_offer']['buy'],
-                                                    f_sku['free_with_same_offer']['free'])
-        f = get_free_with_other_offer_price(f_sku['price'], amounts['F'], amounts[free_with_offer.sku],
-                                            free_with_offer.amount, offers)
+        free_with_same_offer = f_sku['free_with_same_offer']
+        f = get_free_with_same_offer_price(f_sku['price'], amounts['F'], free_with_same_offer)
 
         return a + b + c + d + e + f
     else:

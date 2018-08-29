@@ -15,7 +15,7 @@
   "D": {"price": 15},
   "E": {"price": 40},
   "F": {"price": 10,
-    "free_with_same_offer": {"buy":2 , "free": 1}
+    "free_with_same_offer": 2
   },
   "G": {"price": 20},
   "H": {"price": 10},
