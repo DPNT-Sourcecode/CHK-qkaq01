@@ -60,8 +60,8 @@ def checkout(skus):
                         amounts['E'])  # silly mistake... makes me wonder if amount_e shouldnt be optional!
         c = get_c_price(amounts['C'])
         d = get_d_price(amounts['D'])
-        e = pricesjson['E'] * amounts['E']
+        e = pricesjson['E']['price'] * amounts['E']
         f = get_f_price(amounts['F'])
         return a + b + c + d + e + f
     else:
-        return -1
+        return -1
