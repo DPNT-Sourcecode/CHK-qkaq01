@@ -67,41 +67,51 @@ def checkout(skus):
         with open('skus.json') as f:
             pricesjson = json.load(f)
 
+        price = 0
         # Lets clean this mess
         for sku in pricesjson:
             same_sku_offers = get_same_sku_offers(sku)
             free_with_other_offer = FreeWithOtherSkuOffer(sku['free_with_other_offer']['sku'],
                                                           sku['free_with_other_offer']['amount'])
+            free_with_same_offer = sku['free_with_same_offer']
+
             if free_with_other_offer:
-                price = get_free_with_other_offer_price(sku['price'], amounts[sku], amounts[free_with_other_offer.sku],
+                price += get_free_with_other_offer_price(sku['price'], amounts[sku], amounts[free_with_other_offer.sku],
                                                         free_with_other_offer.amount, same_sku_offers)
+            elif same_sku_offers:
+                price += get_same_sku_offer_price(sku['price'], same_sku_offers, amounts[sku])
+            elif free_with_same_offer:
+                price += get_free_with_same_offer_price(sku['price'], amounts[sku], free_with_same_offer)
 
-        a_sku = pricesjson['A']
-        offers = get_same_sku_offers(a_sku)
-        a = get_same_sku_offer_price(a_sku['price'], offers, amounts['A'])
+        return price
 
-        b_sku = pricesjson['B']
-        offers = get_same_sku_offers(b_sku)
-        free_with_offer = FreeWithOtherSkuOffer(b_sku['free_with_other_offer']['sku'],
-                                                b_sku['free_with_other_offer']['amount'])
-        b = get_free_with_other_offer_price(b_sku['price'], amounts['B'], amounts[free_with_offer.sku],
-                                            free_with_offer.amount, offers)
-
-        c = amounts['C'] * pricesjson['C']['price']
-        d = amounts['D'] * pricesjson['D']['price']
-        e = amounts['E'] * pricesjson['E']['price']
-
-        f_sku = pricesjson['F']
-        free_with_same_offer = f_sku['free_with_same_offer']
-        f = get_free_with_same_offer_price(f_sku['price'], amounts['F'], free_with_same_offer)
-
-        return a + b + c + d + e + f
+        # a_sku = pricesjson['A']
+        # offers = get_same_sku_offers(a_sku)
+        # a = get_same_sku_offer_price(a_sku['price'], offers, amounts['A'])
+        #
+        # b_sku = pricesjson['B']
+        # offers = get_same_sku_offers(b_sku)
+        # free_with_offer = FreeWithOtherSkuOffer(b_sku['free_with_other_offer']['sku'],
+        #                                         b_sku['free_with_other_offer']['amount'])
+        # b = get_free_with_other_offer_price(b_sku['price'], amounts['B'], amounts[free_with_offer.sku],
+        #                                     free_with_offer.amount, offers)
+        #
+        # c = amounts['C'] * pricesjson['C']['price']
+        # d = amounts['D'] * pricesjson['D']['price']
+        # e = amounts['E'] * pricesjson['E']['price']
+        #
+        # f_sku = pricesjson['F']
+        # free_with_same_offer = f_sku['free_with_same_offer']
+        # f = get_free_with_same_offer_price(f_sku['price'], amounts['F'], free_with_same_offer)
+        #
+        # return a + b + c + d + e + f
     else:
         return -1
 
 
 def get_same_sku_offers(sku):
     offers = []
-    for o in sku['same_sku_offers']:
-        offers.append(SameSkuOffer(o['amount'], o['price']))  # i never liked been recorderd 0:)
+    if sku['same_sku_offers']:
+        for o in sku['same_sku_offers']:
+            offers.append(SameSkuOffer(o['amount'], o['price']))  # i never liked been recorderd 0:)
     return offers
