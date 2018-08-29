@@ -26,8 +26,6 @@ class FreeWithOtherSkuOffer:
         self.amount = amount
 
 
-
-
 def get_same_sku_offer_price(regular_price, offers, amount):
     total = 0
     to_pay = amount
@@ -50,7 +48,9 @@ def get_free_with_other_offer_price(regular_price, amount, other_amount_buyed, o
 
 
 def get_free_with_same_offer_price(regular_price, amount, offer_buy):
-    free = amount // offer_buy
+    free = 0
+    if amount >= offer_buy:
+        free = amount // offer_buy + 1
     return (amount - free) * regular_price
 
 
