@@ -47,10 +47,11 @@ def get_free_with_other_offer_price(regular_price, amount, other_amount_buyed, o
         return 0
 
 
+# Finally we can use this to further parametrize the system
 def get_free_with_same_offer_price(regular_price, amount, offer_buy):
     free = 0
-    if amount >= offer_buy:
-        free = amount // offer_buy + 1
+    if amount >= offer_buy + 1:
+        free = amount // (offer_buy + 1)
     return (amount - free) * regular_price
 
 
@@ -79,11 +80,9 @@ def checkout(skus):
 
         c = amounts['C'] * pricesjson['C']['price']
         d = amounts['D'] * pricesjson['D']['price']
-        e = pricesjson['E']['price'] * amounts['E']
+        e = amounts['E'] * pricesjson['E']['price']
 
-        # f = get_f_price(amounts['F']
         f_sku = pricesjson['F']
-        # offers = get_same_sku_offers(f_sku)
         free_with_same_offer = f_sku['free_with_same_offer']
         f = get_free_with_same_offer_price(f_sku['price'], amounts['F'], free_with_same_offer)
 
