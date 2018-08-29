@@ -61,14 +61,14 @@ def get_amounts(skus):
 
 def get_mix_offer_price(pricesjson, amounts):
     # we must order the products by price to give the customer the best possible offer
-    skus = 'X' * amounts['X'] + \
-        'Y' * amounts['Y'] +\
-        'S' * amounts['S'] +\
-        'T' * amounts['T'] +\
-        'Z' * amounts['Z']
+    skus = 'Z' * amounts['Z'] + \
+           'T' * amounts['T'] + \
+           'S' * amounts['S'] + \
+           'Y' * amounts['Y'] + \
+           'X' * amounts['X']
     total_amount = len(skus)
     (offered, regular) = divmod(total_amount, 3)
-    regular_skus = skus[offered*3:]
+    regular_skus = skus[offered * 3:]
     price = offered * 45
     for rs in regular_skus:
         price += pricesjson[rs]['price']
@@ -97,7 +97,7 @@ def checkout(skus):
                         or sku_id == 'X' \
                         or sku_id == 'Y' \
                         or sku_id == 'Z':
-                    continue # special mix offer
+                    continue  # special mix offer
 
                 same_sku_offers = get_same_sku_offers(sku)
                 free_with_other_offer = get_free_with_other_sku_offers(sku)
