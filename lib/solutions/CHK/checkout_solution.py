@@ -12,12 +12,31 @@ def get_offer_price(regular_price, amount, offer_amount, offer_price):
     return offer * offer_price + regular * regular_price
 
 
+class same_sku_offer:
+    def __init__(self, amount, price):
+        self.amount = amount
+        self.price = price
+
+
+def get_same_sku_offer_price(regular_price, offers, amount):
+    total = 0
+    to_pay = amount
+    for offer in offers:
+        (discounted, to_pay) = divmod(amount, offer.amount)
+        total += discounted * offer.price
+    return total + to_pay * regular_price
+
+
 def get_a_price(regular_price, amount):
     # 3A for 130, 5A for 200
-    (offer1, regular) = divmod(amount, 5)
-    (offer2, regular) = divmod(regular, 3)
-    return offer1 * 200 + offer2 * 130 + regular * regular_price
-
+    # (offer1, regular) = divmod(amount, 5)
+    # (offer2, regular) = divmod(regular, 3)
+    # return offer1 * 200 + offer2 * 130 + regular * regular_price
+    offers = [
+        same_sku_offer(3, 130),
+        same_sku_offer(5, 200)
+    ]
+    return get_same_sku_offer_price(regular_price, offers, amount) 
 
 def get_b_price(regular_price, b_amount, e_amount=0):
     if b_amount > 0:
