@@ -6,7 +6,8 @@ import json
 def check_input(skus):
     return re.match("^[A-Z]*$", skus)
 
-#TODO Still needed?
+
+# TODO Still needed?
 def get_offer_price(regular_price, amount, offer_amount, offer_price):
     (offer, regular) = divmod(amount, offer_amount)
     return offer * offer_price + regular * regular_price
@@ -30,6 +31,13 @@ def get_same_sku_offer_price(regular_price, offers, amount):
                 to_pay -= offer.amount  # my goodness not my best day :(
     return total + to_pay * regular_price
 
+
+def get_free_with_other_offer_price(regular_price, amount, other_amount_buyed, other_amount_offer, same_sku_offers):
+    if amount > 0:
+        free = other_amount_buyed // other_amount_offer
+        return get_same_sku_offer_price(regular_price, same_sku_offers, amount - free)
+    else:
+        return 0
 
 
 def get_b_price(regular_price, b_amount, e_amount=0):
@@ -60,11 +68,13 @@ def checkout(skus):
         a_sku = pricesjson['A']
         offers = []
         for o in a_sku['same_sku_offers']:
-            offers.append(same_sku_offer(o['amount'], o['price'])) # i never liked been recorderd 0:)
+            offers.append(same_sku_offer(o['amount'], o['price']))  # i never liked been recorderd 0:)
         a = get_same_sku_offer_price(pricesjson['A']['price'], offers, amounts['A'])
 
-
         b = get_b_price(pricesjson['B']['price'], amounts['B'], amounts['E'])
+
+
+
         c = amounts['C'] * pricesjson['C']['price']
         d = amounts['D'] * pricesjson['D']['price']
         e = pricesjson['E']['price'] * amounts['E']
