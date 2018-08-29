@@ -70,18 +70,19 @@ def checkout(skus):
         price = 0
         # Lets clean this mess
         for sku_id in pricesjson:
-            sku = pricesjson[sku_id] # getting too tired/anxious i guess
-            same_sku_offers = get_same_sku_offers(sku)
-            free_with_other_offer = get_free_with_other_sku_offers(sku)
-            free_with_same_offer = sku['free_with_same_offer'] if 'free_with_same_offer' in sku else None
+            if amounts[sku_id]:
+                sku = pricesjson[sku_id] # getting too tired/anxious i guess
+                same_sku_offers = get_same_sku_offers(sku)
+                free_with_other_offer = get_free_with_other_sku_offers(sku)
+                free_with_same_offer = sku['free_with_same_offer'] if 'free_with_same_offer' in sku else None
 
-            if free_with_other_offer:
-                price += get_free_with_other_offer_price(sku['price'], amounts[sku_id], amounts[free_with_other_offer.sku],
-                                                         free_with_other_offer.amount, same_sku_offers)
-            elif same_sku_offers:
-                price += get_same_sku_offer_price(sku['price'], same_sku_offers, amounts[sku_id])
-            elif free_with_same_offer:
-                price += get_free_with_same_offer_price(sku['price'], amounts[sku_id], free_with_same_offer)
+                if free_with_other_offer:
+                    price += get_free_with_other_offer_price(sku['price'], amounts[sku_id], amounts[free_with_other_offer.sku],
+                                                             free_with_other_offer.amount, same_sku_offers)
+                elif same_sku_offers:
+                    price += get_same_sku_offer_price(sku['price'], same_sku_offers, amounts[sku_id])
+                elif free_with_same_offer:
+                    price += get_free_with_same_offer_price(sku['price'], amounts[sku_id], free_with_same_offer)
 
         return price
 
