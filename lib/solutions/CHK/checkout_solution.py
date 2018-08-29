@@ -84,7 +84,7 @@ def checkout(skus):
 
         # f = get_f_price(amounts['F']
         f_sku = pricesjson['F']
-        offers = get_same_sku_offers(f_sku)
+        # offers = get_same_sku_offers(f_sku)
         free_with_offer = FreeWithOtherSkuOffer(f_sku['free_with_other_offer']['sku'],
                                                 f_sku['free_with_other_offer']['amount'])
         f = get_free_with_other_offer_price(f_sku['price'], amounts['F'], amounts[free_with_offer.sku],
