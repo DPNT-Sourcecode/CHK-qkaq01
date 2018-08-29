@@ -1,5 +1,10 @@
 {
-  "A": {"price": 50},
+  "A": {"price": 50,
+    "same_sku_offers": [
+      {"amount":5, "price": 200},
+      {"amount":3, "price": 130}
+    ]
+  },
   "B": {"price": 30},
   "C": {"price": 20},
   "D": {"price": 15},

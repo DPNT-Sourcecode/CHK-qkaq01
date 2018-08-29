@@ -6,12 +6,13 @@ import json
 def check_input(skus):
     return re.match("^[A-Z]*$", skus)
 
-
+#TODO Still needed?
 def get_offer_price(regular_price, amount, offer_amount, offer_price):
     (offer, regular) = divmod(amount, offer_amount)
     return offer * offer_price + regular * regular_price
 
 
+# Now we can use this to get rid of more hard coding
 class same_sku_offer:
     def __init__(self, amount, price):
         self.amount = amount
@@ -22,24 +23,21 @@ def get_same_sku_offer_price(regular_price, offers, amount):
     total = 0
     to_pay = amount
     for offer in offers:
-        # (discounted, to_pay) = divmod(amount, offer.amount)
-        discounted = amount // offer.amount
-        if discounted:
-            total += discounted * offer.price
-            to_pay -= offer.amount # my goodness not my best day :(
+        if to_pay:
+            discounted = to_pay // offer.amount
+            if discounted:
+                total += discounted * offer.price
+                to_pay -= offer.amount  # my goodness not my best day :(
     return total + to_pay * regular_price
 
 
 def get_a_price(regular_price, amount):
-    # 3A for 130, 5A for 200
-    # (offer1, regular) = divmod(amount, 5)
-    # (offer2, regular) = divmod(regular, 3)
-    # return offer1 * 200 + offer2 * 130 + regular * regular_price
     offers = [
-        same_sku_offer(5, 200), # Best offer first!!!
+        same_sku_offer(5, 200),  # Best offer first!!!
         same_sku_offer(3, 130)
     ]
     return get_same_sku_offer_price(regular_price, offers, amount)
+
 
 def get_b_price(regular_price, b_amount, e_amount=0):
     if b_amount > 0:
