@@ -106,6 +106,10 @@ def test_f_price():
     assert 40 == checkout("FFFFFF")
 
 
+def test_super_mix():
+    assert 0 < checkout("AABCDEFGHIJKLMNOPQRSTUVWXYZ")
+
+
 # def test_h_price():
 #     # | H    | 10    | 5H for 45, 10H for 80
 #     assert 10 == get_h_price(1)
