@@ -23,8 +23,9 @@ def get_same_sku_offer_price(regular_price, offers, amount):
     to_pay = amount
     for offer in offers:
         (discounted, to_pay) = divmod(amount, offer.amount)
-        total += discounted * offer.price
-        to_pay -= offer.amount
+        if discounted:
+            total += discounted * offer.price
+            # to_pay -= offer.amount
     return total + to_pay * regular_price
 
 
