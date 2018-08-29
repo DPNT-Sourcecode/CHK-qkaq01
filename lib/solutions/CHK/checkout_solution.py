@@ -22,7 +22,7 @@ def get_a_price(regular_price, amount):
 def get_b_price(regular_price, b_amount, e_amount=0):
     if b_amount > 0:
         b_free = e_amount // 2
-        return get_offer_price(b_amount - b_free, 2, 45, regular_price)
+        return get_offer_price(regular_price, b_amount - b_free, 2, 45, )
     else:
         return 0
 
