@@ -69,15 +69,14 @@ def checkout(skus):
 
         price = 0
         # Lets clean this mess
-        for sku in pricesjson:
+        for sku_id, sku in enumerate(pricesjson):
             same_sku_offers = get_same_sku_offers(sku)
-            free_with_other_offer = FreeWithOtherSkuOffer(sku['free_with_other_offer']['sku'],
-                                                          sku['free_with_other_offer']['amount'])
-            free_with_same_offer = sku['free_with_same_offer']
+            free_with_other_offer = get_free_with_other_sku_offers(sku)
+            free_with_same_offer = sku['free_with_same_offer'] if sku['free_with_same_offer'] else None
 
             if free_with_other_offer:
                 price += get_free_with_other_offer_price(sku['price'], amounts[sku], amounts[free_with_other_offer.sku],
-                                                        free_with_other_offer.amount, same_sku_offers)
+                                                         free_with_other_offer.amount, same_sku_offers)
             elif same_sku_offers:
                 price += get_same_sku_offer_price(sku['price'], same_sku_offers, amounts[sku])
             elif free_with_same_offer:
@@ -115,3 +114,11 @@ def get_same_sku_offers(sku):
         for o in sku['same_sku_offers']:
             offers.append(SameSkuOffer(o['amount'], o['price']))  # i never liked been recorderd 0:)
     return offers
+
+
+def get_free_with_other_sku_offers(sku):
+    if sku['free_with_other_offer']:
+        return FreeWithOtherSkuOffer(sku['free_with_other_offer']['sku'],
+                                       sku['free_with_other_offer']['amount'])
+    else:
+        return None
