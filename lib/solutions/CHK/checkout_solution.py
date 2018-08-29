@@ -64,8 +64,9 @@ def get_amounts(skus):
 def checkout(skus):
     if check_input(skus):
         amounts = get_amounts(skus)
-        with open('skus.json') as f:
-            pricesjson = json.load(f)
+        # with open('skus.json') as f:
+        #     pricesjson = json.load(f)
+        pricesjson = get_prices_and_offers()
 
         total_price = 0
         # Lets clean this mess
@@ -105,3 +106,71 @@ def get_free_with_other_sku_offers(sku):
                                        sku['free_with_other_offer']['amount'])
     else:
         return None
+
+def get_prices_and_offers():
+    return {
+        "A": {"price": 50,
+              "same_sku_offers": [
+                  {"amount": 5, "price": 200},
+                  {"amount": 3, "price": 130}
+              ]
+              },
+        "B": {"price": 30,
+              "free_with_other_offer": {"sku": "E", "amount": 2},
+              "same_sku_offers": [
+                  {"amount": 2, "price": 45}
+              ]
+              },
+        "C": {"price": 20},
+        "D": {"price": 15},
+        "E": {"price": 40},
+        "F": {"price": 10,
+              "free_with_same_offer": 2
+              },
+        "G": {"price": 20},
+        "H": {"price": 10,
+              "same_sku_offers": [
+                  {"amount": 10, "price": 80},
+                  {"amount": 5, "price": 45}
+              ]},
+        "I": {"price": 35},
+        "J": {"price": 60},
+        "K": {"price": 80,
+              "same_sku_offers": [
+                  {"amount": 2, "price": 150}
+              ]
+              },
+        "L": {"price": 90},
+        "M": {"price": 15,
+              "free_with_other_offer": {"sku": "N", "amount": 3}
+              },
+        "N": {"price": 40},
+        "O": {"price": 10},
+        "P": {"price": 50,
+              "same_sku_offers": [
+                  {"amount": 5, "price": 200}
+              ]
+              },
+        "Q": {"price": 30,
+              "free_with_other_offer": {"sku": "R", "amount": 3},
+              "same_sku_offers": [
+                  {"amount": 3, "price": 80}
+              ]
+              },
+        "R": {"price": 50},
+        "S": {"price": 30},
+        "T": {"price": 20},
+        "U": {"price": 40,
+              "free_with_same_offer": 3
+              },
+        "V": {"price": 50,
+              "same_sku_offers": [
+                  {"amount": 3, "price": 130},
+                  {"amount": 2, "price": 90}
+              ]
+              },
+        "W": {"price": 20},
+        "X": {"price": 90},
+        "Y": {"price": 10},
+        "Z": {"price": 50}
+    }
