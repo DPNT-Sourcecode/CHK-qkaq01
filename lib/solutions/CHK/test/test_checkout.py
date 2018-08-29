@@ -33,7 +33,7 @@
 # however now it is obvious that hardcoding prices is not a very maintainable way to do this so let's do some refactoring
 
 from lib.solutions.CHK.checkout_solution import get_a_price, get_b_price, get_c_price, get_d_price, get_amounts, \
-    checkout, check_input, get_e_price, get_f_price
+    checkout, check_input
 
 
 # Let's test only the special cases from now on

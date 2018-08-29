@@ -1,6 +1,6 @@
 from collections import Counter
 import re
-
+import json
 
 def check_input(skus):
     return re.match("^[A-Z]*$", skus)
@@ -33,10 +33,10 @@ def get_c_price(amount):
 def get_d_price(amount):
     return amount * 15
 
-
-def get_e_price(amount):
-    return amount * 40
-
+#
+# def get_e_price(amount):
+#     return amount * 40
+#
 
 def get_f_price(amount):
     free = amount // 3
@@ -52,12 +52,15 @@ def get_amounts(skus):
 def checkout(skus):
     if check_input(skus):
         amounts = get_amounts(skus)
+        with open('skus.json') as f:
+            pricesjson = json.load(f)
+
         a = get_a_price(amounts['A'])
         b = get_b_price(amounts['B'],
                         amounts['E'])  # silly mistake... makes me wonder if amount_e shouldnt be optional!
         c = get_c_price(amounts['C'])
         d = get_d_price(amounts['D'])
-        e = get_e_price(amounts['E'])
+        e = pricesjson['E'] * amounts['E']
         f = get_f_price(amounts['F'])
         return a + b + c + d + e + f
     else:
