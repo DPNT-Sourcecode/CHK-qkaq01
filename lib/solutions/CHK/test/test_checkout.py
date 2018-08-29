@@ -29,13 +29,16 @@
 # | Z    | 50    |                        |
 # +------+-------+------------------------+
 
+# so up until this point I went with the easiest way to add new products, since I didnt know where this was going.
+# however now it is obvious that hardcoding prices is not a very maintainable way to do this so let's do some refactoring
+
 from lib.solutions.CHK.checkout_solution import get_a_price, get_b_price, get_c_price, get_d_price, get_amounts, \
     checkout, check_input, get_e_price, get_f_price
 
 
 # Let's test only the special cases from now on
 
-def test_checkout():
+def test_checkout_mixed_products():
     assert 50 == checkout("A")
     assert 50 + 30 == checkout("AB")  # clearer this way
     assert 50 * 2 + 30 == checkout("ABA")
@@ -51,12 +54,12 @@ def test_checkout():
 
 
 def test_a_price():
-    assert 50 == get_a_price(1)
-    assert 100 == get_a_price(2)
-    assert 130 == get_a_price(3)
-    assert 180 == get_a_price(4)
-    assert 200 == get_a_price(5)
-    assert 200 + 50 * 2 == get_a_price(7)
+    assert 50 == checkout("A")
+    assert 100 == checkout("AA")
+    assert 130 == checkout("AAA")
+    assert 180 == checkout("AAAA")
+    assert 200 == checkout("AAAAA")
+    assert 200 + 50 * 2 == checkout("AAAAAAA")
 
 
 def test_b_price():
