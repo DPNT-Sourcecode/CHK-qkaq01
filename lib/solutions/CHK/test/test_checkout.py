@@ -34,8 +34,10 @@
 
 from lib.solutions.CHK.checkout_solution import get_amounts, checkout, check_input
 
+def test_get_mix_offer_price():
+    assert 45 + 20 == checkout("SSTT")
+    assert 45 + 17 + 20 == checkout("STXYZ")
 
-# Let's test only the special cases from now on
 
 def test_checkout_mixed_products():
     assert 50 == checkout("A")

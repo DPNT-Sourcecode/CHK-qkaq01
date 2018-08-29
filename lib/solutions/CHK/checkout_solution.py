@@ -68,7 +68,7 @@ def get_mix_offer_price(pricesjson, amounts):
         'Z' * amounts['Z']
     total_amount = len(skus)
     (offered, regular) = divmod(total_amount, 3)
-    regular_skus = skus[offered:]
+    regular_skus = skus[offered*3:]
     price = offered * 45
     for rs in regular_skus:
         price += pricesjson[rs]['price']
