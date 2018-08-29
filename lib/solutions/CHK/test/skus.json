@@ -5,7 +5,11 @@
       {"amount":3, "price": 130}
     ]
   },
-  "B": {"price": 30},
+  "B": {"price": 30,
+    "same_sku_offers": [
+      {"amount":2, "price": 45}
+    ]
+  },
   "C": {"price": 20},
   "D": {"price": 15},
   "E": {"price": 40},
