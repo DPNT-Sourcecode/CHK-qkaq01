@@ -47,12 +47,6 @@ def get_free_with_other_offer_price(regular_price, amount, other_amount_buyed, o
         return 0
 
 
-def get_b_price(regular_price, b_amount, e_amount=0):
-    if b_amount > 0:
-        b_free = e_amount // 2
-        return get_offer_price(regular_price, b_amount - b_free, 2, 45, )
-    else:
-        return 0
 
 
 def get_f_price(amount):
@@ -80,14 +74,23 @@ def checkout(skus):
         offers = get_same_sku_offers(b_sku)
         free_with_offer = FreeWithOtherSkuOffer(b_sku['free_with_other_offer']['sku'],
                                                 b_sku['free_with_other_offer']['amount'])
-        # b = get_b_price(pricesjson['B']['price'], amounts['B'], amounts['E'])
         b = get_free_with_other_offer_price(b_sku['price'], amounts['B'], amounts[free_with_offer.sku],
                                             free_with_offer.amount, offers)
 
         c = amounts['C'] * pricesjson['C']['price']
         d = amounts['D'] * pricesjson['D']['price']
         e = pricesjson['E']['price'] * amounts['E']
-        f = get_f_price(amounts['F'])
+
+
+        # f = get_f_price(amounts['F']
+        f_sku = pricesjson['F']
+        offers = get_same_sku_offers(f_sku)
+        free_with_offer = FreeWithOtherSkuOffer(f_sku['free_with_other_offer']['sku'],
+                                                f_sku['free_with_other_offer']['amount'])
+        f = get_free_with_other_offer_price(f_sku['price'], amounts['F'], amounts[free_with_offer.sku],
+                                            free_with_offer.amount, offers)
+
+
         return a + b + c + d + e + f
     else:
         return -1

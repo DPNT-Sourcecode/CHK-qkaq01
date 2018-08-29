@@ -32,8 +32,7 @@
 # so up until this point I went with the easiest way to add new products, since I didnt know where this was going.
 # however now it is obvious that hardcoding prices is not a very maintainable way to do this so let's do some refactoring
 
-from lib.solutions.CHK.checkout_solution import get_b_price, get_amounts, \
-    checkout, check_input
+from lib.solutions.CHK.checkout_solution import get_amounts, checkout, check_input
 
 
 # Let's test only the special cases from now on
@@ -73,14 +72,14 @@ def test_b_price():
     assert 30 + 40 == checkout("BE")
     assert 45 + 40 == checkout("BBE")
     assert 75 + 40 == checkout("BBBE")
-    assert 90 + 30 +40 == checkout("BBBBBE")
+    assert 90 + 30 + 40 == checkout("BBBBBE")
     # Prices buying 2 e should be discounted
     assert 80 == checkout("BEE")
     assert 30 + 80 == checkout("BBEE")
     assert 45 + 80 == checkout("BBBEE")
     assert 45 + 30 + 80 == checkout("BBBBEE")
     # Multiple free Bs
-    assert 0 + 4*40 == checkout("BBEEEE")
+    assert 0 + 4 * 40 == checkout("BBEEEE")
 
 
 def test_c_price():

@@ -14,7 +14,9 @@
   "C": {"price": 20},
   "D": {"price": 15},
   "E": {"price": 40},
-  "F": {"price": 10},
+  "F": {"price": 10,
+    "free_with_other_offer": {"sku": "F", "amount": 2}
+  },
   "G": {"price": 20},
   "H": {"price": 10},
   "I": {"price": 35},
