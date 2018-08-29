@@ -66,13 +66,22 @@ def checkout(skus):
         amounts = get_amounts(skus)
         # with open('skus.json') as f:
         #     pricesjson = json.load(f)
-        pricesjson = get_prices_and_offers()
+        pricesjson = get_prices_and_offers() # Im getting the impression Im overthinking / overengineering this
+        # Probably the json file parsing was not necessary or expected...
+        # Let's keep it simple now
 
         total_price = 0
         # Lets clean this mess
         for sku_id in pricesjson:
             if amounts[sku_id]:
-                sku = pricesjson[sku_id] # getting too tired/anxious i guess
+                sku = pricesjson[sku_id]
+
+                if sku_id == 'S'
+                    or sku_id == 'T'
+                    or sku_id == 'X'
+                    or sku_id == 'Y'
+                    or sku_id == 'Z'
+                
                 same_sku_offers = get_same_sku_offers(sku)
                 free_with_other_offer = get_free_with_other_sku_offers(sku)
                 free_with_same_offer = sku['free_with_same_offer'] if 'free_with_same_offer' in sku else None
@@ -135,7 +144,7 @@ def get_prices_and_offers():
               ]},
         "I": {"price": 35},
         "J": {"price": 60},
-        "K": {"price": 80,
+        "K": {"price": 70,
               "same_sku_offers": [
                   {"amount": 2, "price": 150}
               ]
@@ -158,7 +167,7 @@ def get_prices_and_offers():
               ]
               },
         "R": {"price": 50},
-        "S": {"price": 30},
+        "S": {"price": 20},
         "T": {"price": 20},
         "U": {"price": 40,
               "free_with_same_offer": 3
@@ -170,7 +179,7 @@ def get_prices_and_offers():
               ]
               },
         "W": {"price": 20},
-        "X": {"price": 90},
-        "Y": {"price": 10},
-        "Z": {"price": 50}
+        "X": {"price": 17},
+        "Y": {"price": 20},
+        "Z": {"price": 21}
     }
