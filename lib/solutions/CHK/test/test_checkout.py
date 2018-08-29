@@ -68,20 +68,19 @@ def test_b_price():
     assert 30 == checkout("B")
     assert 45 == checkout("BB")
     assert 75 == checkout("BBB")
-    assert 90 + 30 == get_b_price(30, b_amount=5, e_amount=0)
     assert 90 + 30 == checkout("BBBBB")
     # Prices buying just one e should be the same
-    assert 30 == get_b_price(30, b_amount=1, e_amount=1)
-    assert 45 == get_b_price(30, b_amount=2, e_amount=1)
-    assert 75 == get_b_price(30, b_amount=3, e_amount=1)
-    assert 90 + 30 == get_b_price(30, b_amount=5, e_amount=1)
+    assert 30 + 40 == checkout("BE")
+    assert 45 + 40 == checkout("BBE")
+    assert 75 + 40 == checkout("BBBE")
+    assert 90 + 30 +40 == checkout("BBBBBE")
     # Prices buying 2 e should be discounted
     assert 80 == checkout("BEE")
     assert 30 + 80 == checkout("BBEE")
     assert 45 + 80 == checkout("BBBEE")
     assert 45 + 30 + 80 == checkout("BBBBEE")
     # Multiple free Bs
-    assert 0 == get_b_price(30, b_amount=2, e_amount=4)
+    assert 0 + 4*40 == checkout("BBEEEE")
 
 
 def test_c_price():

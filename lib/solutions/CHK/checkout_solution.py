@@ -34,7 +34,7 @@ def get_same_sku_offer_price(regular_price, offers, amount):
             discounted = to_pay // offer.amount
             if discounted:
                 total += discounted * offer.price
-                to_pay -= offer.amount  # my goodness not my best day :(
+                to_pay -= offer.amount * discounted  # my goodness not my best day :(
     return total + to_pay * regular_price
 
 
