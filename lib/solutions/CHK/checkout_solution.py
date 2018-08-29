@@ -67,6 +67,15 @@ def checkout(skus):
         with open('skus.json') as f:
             pricesjson = json.load(f)
 
+        # Lets clean this mess
+        for sku in pricesjson:
+            same_sku_offers = get_same_sku_offers(sku)
+            free_with_other_offer = FreeWithOtherSkuOffer(sku['free_with_other_offer']['sku'],
+                                                          sku['free_with_other_offer']['amount'])
+            if free_with_other_offer:
+                price = get_free_with_other_offer_price(sku['price'], amounts[sku], amounts[free_with_other_offer.sku],
+                                                        free_with_other_offer.amount, same_sku_offers)
+
         a_sku = pricesjson['A']
         offers = get_same_sku_offers(a_sku)
         a = get_same_sku_offer_price(a_sku['price'], offers, amounts['A'])
