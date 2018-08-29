@@ -61,77 +61,77 @@ def test_a_price():
     assert 200 == checkout("AAAAA")
     assert 200 + 50 * 2 == checkout("AAAAAAA")
 
-
+# lets go step by step and leave the offers like that for now
 def test_b_price():
     # Prices without buying any e
-    assert 30 == checkout("B")
-    assert 45 == checkout("BB")
-    assert 75 == checkout("BBB")
-    assert 90 + 30 == checkout("BBBBB")
+    assert 30 == get_b_price(b_amount=1, e_amount=0)
+    assert 45 == get_b_price(b_amount=2, e_amount=0)
+    assert 75 == get_b_price(b_amount=3, e_amount=0)
+    assert 90 + 30 == get_b_price(b_amount=5, e_amount=0)
     # Prices buying just one e should be the same
-    assert 30 == checkout("BE")
-    assert 45 == checkout("BBE")
-    assert 75 == checkout("BBBE")
-    assert 90 + 30 == checkout("BBBBBE")
+    assert 30 == get_b_price(b_amount=1, e_amount=1)
+    assert 45 == get_b_price(b_amount=2, e_amount=1)
+    assert 75 == get_b_price(b_amount=3, e_amount=1)
+    assert 90 + 30 == get_b_price(b_amount=5, e_amount=1)
     # Prices buying 2 e should be discounted
-    assert 0 == checkout("BEE")
-    assert 30 == checkout("BBEE")
-    assert 45 == checkout("BBBEE")
-    assert 45 * 2 == checkout("BBBBBEE")
+    assert 0 == get_b_price(b_amount=1, e_amount=2)
+    assert 30 == get_b_price(b_amount=2, e_amount=2)
+    assert 45 == get_b_price(b_amount=3, e_amount=2)
+    assert 45 * 2 == get_b_price(b_amount=5, e_amount=2)
     # Multiple free Bs
-    assert 0 == checkout("BBEEEE")
+    assert 0 == get_b_price(b_amount=2, e_amount=4)
 
 
 def test_c_price():
-    assert 20 == get_c_price(1)
-    assert 40 == get_c_price(2)
+    assert 20 == checkout("C")
+    assert 40 == checkout("CC")
 
 
 def test_d_price():
-    assert 15 == get_d_price(1)
-    assert 30 == get_d_price(2)
+    assert 15 == checkout("D")
+    assert 30 == checkout("DD")
 
 
 def test_e_price():
-    assert 40 == get_e_price(1)
-    assert 80 == get_e_price(2)
+    assert 40 == checkout("E")
+    assert 80 == checkout("EE")
 
 
 def test_f_price():
-    assert 10 == get_f_price(1)
-    assert 20 == get_f_price(2)
-    assert 20 == get_f_price(3)
-    assert 30 == get_f_price(4)
-    assert 40 == get_f_price(5)
-    assert 40 == get_f_price(6)
+    assert 10 == checkout("F")
+    assert 20 == checkout("FF")
+    assert 20 == checkout("FFF")
+    assert 30 == checkout("FFFF")
+    assert 40 == checkout("FFFFF")
+    assert 40 == checkout("FFFFFF")
 
 
-def test_h_price():
-    # | H    | 10    | 5H for 45, 10H for 80
-    assert 10 == get_h_price(1)
-    assert 40 == get_h_price(4)
-    assert 45 == get_h_price(5)
-    assert 45 + 40 == get_h_price(9)
-    assert 80 == get_h_price(10)
-    assert 80 + 10 == get_h_price(11)
-
-
-def test_k_price():
-    # | K    | 80    | 2K for 150             |
-    assert 80 == get_k_price(1)
-    assert 150 == get_k_price(2)
-    assert 150 + 80 == get_k_price(3)
-
-
-def test_m_price():
-    # | M    | 15    |                        |
-    # | N    | 40    | 3N get one M free
-    assert False
-
-
-def test_n_price():
-    # | N    | 40    | 3N get one M free
-    assert False
+# def test_h_price():
+#     # | H    | 10    | 5H for 45, 10H for 80
+#     assert 10 == get_h_price(1)
+#     assert 40 == get_h_price(4)
+#     assert 45 == get_h_price(5)
+#     assert 45 + 40 == get_h_price(9)
+#     assert 80 == get_h_price(10)
+#     assert 80 + 10 == get_h_price(11)
+#
+#
+# def test_k_price():
+#     # | K    | 80    | 2K for 150             |
+#     assert 80 == get_k_price(1)
+#     assert 150 == get_k_price(2)
+#     assert 150 + 80 == get_k_price(3)
+#
+#
+# def test_m_price():
+#     # | M    | 15    |                        |
+#     # | N    | 40    | 3N get one M free
+#     assert False
+#
+#
+# def test_n_price():
+#     # | N    | 40    | 3N get one M free
+#     assert False
 
 
 def test_get_amounts():

@@ -3,7 +3,7 @@ import re
 
 
 def check_input(skus):
-    return re.match("^[A-F]*$", skus)
+    return re.match("^[A-Z]*$", skus)
 
 
 def get_offer_price(amount, offer_amount, offer_price, regular_price):
