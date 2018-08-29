@@ -32,7 +32,7 @@
 # so up until this point I went with the easiest way to add new products, since I didnt know where this was going.
 # however now it is obvious that hardcoding prices is not a very maintainable way to do this so let's do some refactoring
 
-from lib.solutions.CHK.checkout_solution import get_a_price, get_b_price, get_amounts, \
+from lib.solutions.CHK.checkout_solution import get_b_price, get_amounts, \
     checkout, check_input
 
 
@@ -70,17 +70,17 @@ def test_b_price():
     assert 75 == get_b_price(30, b_amount=3, e_amount=0)
     assert 90 + 30 == get_b_price(30, b_amount=5, e_amount=0)
     # Prices buying just one e should be the same
-    assert 30 == get_b_price(30 ,b_amount=1, e_amount=1)
-    assert 45 == get_b_price(30 ,b_amount=2, e_amount=1)
-    assert 75 == get_b_price(30 ,b_amount=3, e_amount=1)
+    assert 30 == get_b_price(30, b_amount=1, e_amount=1)
+    assert 45 == get_b_price(30, b_amount=2, e_amount=1)
+    assert 75 == get_b_price(30, b_amount=3, e_amount=1)
     assert 90 + 30 == get_b_price(30, b_amount=5, e_amount=1)
     # Prices buying 2 e should be discounted
-    assert 0 == get_b_price(30,b_amount=1, e_amount=2)
+    assert 0 == get_b_price(30, b_amount=1, e_amount=2)
     assert 30 == get_b_price(30, b_amount=2, e_amount=2)
     assert 45 == get_b_price(30, b_amount=3, e_amount=2)
-    assert 45 * 2 == get_b_price(30,b_amount=5, e_amount=2)
+    assert 45 * 2 == get_b_price(30, b_amount=5, e_amount=2)
     # Multiple free Bs
-    assert 0 == get_b_price(30,b_amount=2, e_amount=4)
+    assert 0 == get_b_price(30, b_amount=2, e_amount=4)
 
 
 def test_c_price():

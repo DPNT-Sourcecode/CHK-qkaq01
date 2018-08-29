@@ -6,7 +6,7 @@
     ]
   },
   "B": {"price": 30,
-    "free_with_other_offer": [ {"sku": "E", "amount": 2}],
+    "free_with_other_offer": {"sku": "E", "amount": 2},
     "same_sku_offers": [
       {"amount":2, "price": 45}
     ]
