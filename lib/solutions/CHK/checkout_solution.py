@@ -31,11 +31,11 @@ def get_same_sku_offer_price(regular_price, offers, amount):
     return total + to_pay * regular_price
 
 
-def get_a_price(regular_price, amount):
-    offers = [
-        same_sku_offer(5, 200),  # Best offer first!!!
-        same_sku_offer(3, 130)
-    ]
+def get_a_price(regular_price, amount, offers):
+    # offers = [
+    #     same_sku_offer(5, 200),  # Best offer first!!!
+    #     same_sku_offer(3, 130)
+    # ]
     return get_same_sku_offer_price(regular_price, offers, amount)
 
 
@@ -64,7 +64,13 @@ def checkout(skus):
         with open('skus.json') as f:
             pricesjson = json.load(f)
 
-        a = get_a_price(pricesjson['A']['price'], amounts['A'])
+        a_sku = pricesjson['A']
+        offers = []
+        for o in a_sku['same_sku_offers']:
+            offers.append(same_sku_offer(o['amount'], o['price'])) # i never liked been recorderd 0:)
+        a = get_a_price(pricesjson['A']['price'], amounts['A'], offers)
+
+
         b = get_b_price(pricesjson['B']['price'], amounts['B'], amounts['E'])
         c = amounts['C'] * pricesjson['C']['price']
         d = amounts['D'] * pricesjson['D']['price']
