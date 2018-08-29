@@ -59,6 +59,22 @@ def get_amounts(skus):
     return Counter(list(skus))
 
 
+def get_mix_offer_price(pricesjson, amounts):
+    # we must order the products by price to give the customer the best possible offer
+    skus = 'X' * amounts['X'] + \
+        'Y' * amounts['Y'] +\
+        'S' * amounts['S'] +\
+        'T' * amounts['T'] +\
+        'Z' * amounts['Z']
+    total_amount = len(skus)
+    (offered, regular) = divmod(total_amount, 3)
+    regular_skus = skus[offered:]
+    price = offered * 45
+    for rs in regular_skus:
+        price += pricesjson[rs]['price']
+    return price
+
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
@@ -66,7 +82,7 @@ def checkout(skus):
         amounts = get_amounts(skus)
         # with open('skus.json') as f:
         #     pricesjson = json.load(f)
-        pricesjson = get_prices_and_offers() # Im getting the impression Im overthinking / overengineering this
+        pricesjson = get_prices_and_offers()  # Im getting the impression Im overthinking / overengineering this
         # Probably the json file parsing was not necessary or expected...
         # Let's keep it simple now
 
@@ -76,25 +92,29 @@ def checkout(skus):
             if amounts[sku_id]:
                 sku = pricesjson[sku_id]
 
-                if sku_id == 'S'
-                    or sku_id == 'T'
-                    or sku_id == 'X'
-                    or sku_id == 'Y'
-                    or sku_id == 'Z'
-                
+                if sku_id == 'S' \
+                        or sku_id == 'T' \
+                        or sku_id == 'X' \
+                        or sku_id == 'Y' \
+                        or sku_id == 'Z':
+                    continue # special mix offer
+
                 same_sku_offers = get_same_sku_offers(sku)
                 free_with_other_offer = get_free_with_other_sku_offers(sku)
                 free_with_same_offer = sku['free_with_same_offer'] if 'free_with_same_offer' in sku else None
 
                 if free_with_other_offer:
-                    total_price += get_free_with_other_offer_price(sku['price'], amounts[sku_id], amounts[free_with_other_offer.sku],
-                                                             free_with_other_offer.amount, same_sku_offers)
+                    total_price += get_free_with_other_offer_price(sku['price'], amounts[sku_id],
+                                                                   amounts[free_with_other_offer.sku],
+                                                                   free_with_other_offer.amount, same_sku_offers)
                 elif same_sku_offers:
                     total_price += get_same_sku_offer_price(sku['price'], same_sku_offers, amounts[sku_id])
                 elif free_with_same_offer:
                     total_price += get_free_with_same_offer_price(sku['price'], amounts[sku_id], free_with_same_offer)
-                else: # of course, the simplest case! :)
+                else:  # of course, the simplest case! :)
                     total_price += amounts[sku_id] * pricesjson[sku_id]['price']
+
+        total_price += get_mix_offer_price(pricesjson, amounts)
 
         return total_price
     else:
@@ -112,9 +132,10 @@ def get_same_sku_offers(sku):
 def get_free_with_other_sku_offers(sku):
     if 'free_with_other_offer' in sku:
         return FreeWithOtherSkuOffer(sku['free_with_other_offer']['sku'],
-                                       sku['free_with_other_offer']['amount'])
+                                     sku['free_with_other_offer']['amount'])
     else:
         return None
+
 
 def get_prices_and_offers():
     return {
